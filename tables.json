@@ -1,0 +1,54 @@
+{
+  "AA_TYPES": {
+    "35": "EEW Forecast: max intensity only (pattern 1)",
+    "36": "EEW Forecast: M + intensity + arrival (pattern 2, incl. PLUM-only)",
+    "37": "EEW Forecast/Warning: M + intensity + arrival (pattern 3, higher certainty)",
+    "38": "EEW Test",
+    "39": "EEW Cancellation",
+    "47": "Public EEW (一般向け)",
+    "48": "Public EEW Cancellation",
+    "61": "Realtime Shindo / Cancel"
+  },
+  "OFFICES": {
+    "01": "Sapporo",
+    "02": "Sendai",
+    "03": "Tokyo (HQ)",
+    "04": "Osaka",
+    "05": "Fukuoka"
+  },
+  "NN_TYPES": {
+    "00": "Normal",
+    "01": "Training",
+    "10": "Cancellation of normal",
+    "11": "Cancellation of training",
+    "20": "Reference/Test",
+    "30": "Code distribution test"
+  },
+  "EPICENTER_CODES": {
+    "016": "Tokai Region (東海地方)",
+    "212": "Iwate Prefecture Coastal North (岩手県沿岸北部)",
+    "486": "Off Suruga Bay (駿河湾南方沖)",
+    "741": "Kumamoto City area (熊本県熊本)"
+    // wait until i figure out how to extract these from the pdf
+  },
+  "REGION_CODES": {
+    "440": "Shizuoka Eastern (静岡県東部)",
+    "441": "Shizuoka Western (静岡県西部)",
+    "442": "Shizuoka Central (静岡県中部)",
+    "443": "Izu (静岡県伊豆)",
+    "741": "Kumamoto City area (熊本県熊本)"
+    // wait until i figure out how to extract these from the pdf
+  },
+  "SHINDO_MAP": {
+    "01": "1",
+    "02": "2",
+    "03": "3",
+    "04": "4",
+    "5-": "5-",
+    "5+": "5+",
+    "6-": "6-",
+    "6+": "6+",
+    "07": "7",
+    "//": null
+  }
+}
