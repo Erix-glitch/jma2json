@@ -1,5 +1,7 @@
 # Based on JMA's official EEW Message Format Specification
 # https://www.data.jma.go.jp/suishin/shiyou/pdf/no40202
+# also "borrowed" stuff from
+# https://github.com/skubota/eew
 from __future__ import annotations
 from dataclasses import dataclass, field, asdict
 from typing import List, Optional, Dict, Any, Tuple, Union
