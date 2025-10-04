@@ -7,7 +7,7 @@ jma2json is a small Python helper that turns raw Earthquake Early Warning (EEW) 
 - Parses single and multi-part EEW telegrams into rich Python dataclasses or JSON.
 - Normalizes timestamps, magnitude, hypocenter coordinates, intensity codes, and reliability flags.
 - Reassembles split messages by tracking the `CNF` remainder flag so the caller only has to deal with complete payloads.
-- Includes bundled tables (`tables.json`) and strings (`strings/ja_JP.json`) that map JMA codes to human-readable descriptions. The included tables are missing many codes, more on that later.
+- Includes bundled tables (`tables.json`) and strings (`strings/ja_JP.json`) that map JMA codes to human-readable descriptions. 
 
 ## Installation
 
@@ -71,7 +71,6 @@ The JSON files should contain simple `code -> label` mappings. If you omit a map
 - The library focuses on telegram type VXSE (EEW). Other telegram types may decode partially.
 - Fields with `//` or `///` placeholders from the source message are surfaced as `None`.
 - Network access is not required for decoding; the bundled example fetches data from a community api [Wolfx API](https://api.wolfx.jp) for convenience only.
-- The included tables (`tables.json`) **are** missing codes, as I tried to extract them from the JMA telegram explanation PDF. (failed)
 
 ## Resources
 
