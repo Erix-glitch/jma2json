@@ -13,6 +13,7 @@ from pathlib import Path
 # tables
 
 TABLES_PATH = Path(__file__).with_name("tables.json")
+STRINGS_PATH = Path(__file__).resolve().parent / "strings" / "en_CA.json" # change this if you want to use another language
 
 
 def _load_builtin_tables(source: Optional[Union[str, Path]] = None) -> Dict[str, Dict[str, Any]]:
@@ -26,18 +27,68 @@ def _load_builtin_tables(source: Optional[Union[str, Path]] = None) -> Dict[str,
 
 _TABLES = _load_builtin_tables()
 
+def _load_strings(source: Optional[Union[str, Path]] = None) -> Dict[str, Any]:
+    path = Path(source) if source else STRINGS_PATH
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        return {}
+    if not isinstance(data, dict):
+        raise ValueError("strings/en_CA.json must contain a JSON object")
+    return data
+
+
+_STRINGS = _load_strings()
+
+
+def _strings_dict(*keys: str) -> Dict[str, str]:
+    data: Any = _STRINGS
+    for key in keys:
+        if not isinstance(data, dict):
+            return {}
+        data = data.get(key, {})
+    return dict(data) if isinstance(data, dict) else {}
+
+
+def _string_value(*keys: str, default: str) -> str:
+    data: Any = _STRINGS
+    for key in keys:
+        if not isinstance(data, dict):
+            return default
+        data = data.get(key)
+        if data is None:
+            return default
+    return data if isinstance(data, str) else default
+
+
 AA_TYPES = dict(_TABLES.get("AA_TYPES", {}))
 OFFICES = dict(_TABLES.get("OFFICES", {}))
 NN_TYPES = dict(_TABLES.get("NN_TYPES", {}))
 
-# Minimal embedded epicenter codes (users can load full table).
-# Keys as strings to preserve leading zeros if any.
 EPICENTER_CODES = dict(_TABLES.get("EPICENTER_CODES", {}))
-
-# Minimal region code examples for EBI (地域コード). Users can load full table at runtime.
 REGION_CODES = dict(_TABLES.get("REGION_CODES", {}))
 
 SHINDO_MAP = dict(_TABLES.get("SHINDO_MAP", {}))
+
+UNKNOWN_DESC = _string_value("common", "unknown", default="Unknown")
+
+RK_EPICENTER_REL = _strings_dict("rk", "epicenter_reliability")
+RK_DEPTH_REL = _strings_dict("rk", "depth_reliability")
+RK_MAG_REL = _strings_dict("rk", "magnitude_reliability")
+RK_MAG_USED_POINTS = _strings_dict("rk", "magnitude_used_points")
+RK_SOURCE_REL = _strings_dict("rk", "source_reliability")
+
+RT_LAND_SEA = _strings_dict("rt", "land_sea")
+RT_ALERT_LEVEL = _strings_dict("rt", "alert_level")
+RT_METHOD = _strings_dict("rt", "method")
+
+RC_CHANGE = _strings_dict("rc", "change")
+RC_REASON = _strings_dict("rc", "reason")
+
+EBI_LABELS = _strings_dict("ebi", "labels")
+EBI_ALERT = _strings_dict("ebi", "alert")
+EBI_PHASE = _strings_dict("ebi", "phase")
 
 def parse_int_or_none(s: str) -> Optional[int]:
     try:
@@ -107,63 +158,13 @@ def decode_rk(rk: str) -> Dict[str, Any]:
     if not m:
         return {"raw": rk}
     n1, n2, n3, n4, n5 = m.groups()
-    # Map descriptions per PDF
-    epicenter_rel = {
-        "1": "P/S level-cross, IPF 1pt, or assumed source (PLUM)",
-        "2": "IPF 2pt",
-        "3": "IPF 3-4pt",
-        "4": "IPF 5+ pt",
-        "5": "NIED system ≤4 pt or no precision info (Hi-net)",
-        "6": "NIED system 5+ pt (Hi-net)",
-        "7": "EPOS (offshore/outside network)",
-        "8": "EPOS (inland/inside network)",
-        "9": "Reserved",
-        "/": "Unknown/Unset/Cancel",
-    }
-    depth_rel = epicenter_rel.copy()
-    mag_rel = {
-        "1": "Undefined",
-        "2": "NIED system (Hi-net)",
-        "3": "All P-phase",
-        "4": "Mixed P/all-phase",
-        "5": "All stations, all phases",
-        "6": "EPOS",
-        "7": "Undefined",
-        "8": "P/S level-cross, or assumed source (PLUM)",
-        "9": "Reserved",
-        "/": "Unknown/Unset/Cancel",
-    }
-    m_used_pts = {
-        "1": "1 point / level-cross / assumed (PLUM)",
-        "2": "2 points",
-        "3": "3 points",
-        "4": "4 points",
-        "5": "5+ points",
-        "6": "Unused",
-        "7": "Unused",
-        "8": "Unused",
-        "9": "Unused",
-        "/": "Unknown/Unset/Cancel",
-    }
-    source_rel = {
-        "1": "IPF 1pt or assumed source (PLUM)",
-        "2": "IPF 2pt",
-        "3": "IPF 3-4pt",
-        "4": "IPF 5+ pt",
-        "5": "Unused",
-        "6": "Unused",
-        "7": "Unused",
-        "8": "Unused",
-        "9": "Final-quality source; M/hypocenter no longer change (PLUM intensity may still change)",
-        "/": "Unknown/Unset/Cancel",
-    }
     return {
         "raw": rk,
-        "n1_epicenter_reliability": epicenter_rel.get(n1, n1),
-        "n2_depth_reliability": depth_rel.get(n2, n2),
-        "n3_magnitude_reliability": mag_rel.get(n3, n3),
-        "n4_magnitude_used_points": m_used_pts.get(n4, n4),
-        "n5_source_reliability": source_rel.get(n5, n5),
+        "n1_epicenter_reliability": RK_EPICENTER_REL.get(n1, n1),
+        "n2_depth_reliability": RK_DEPTH_REL.get(n2, n2),
+        "n3_magnitude_reliability": RK_MAG_REL.get(n3, n3),
+        "n4_magnitude_used_points": RK_MAG_USED_POINTS.get(n4, n4),
+        "n5_source_reliability": RK_SOURCE_REL.get(n5, n5),
     }
 
 def decode_rt(rt: str) -> Dict[str, Any]:
@@ -173,9 +174,9 @@ def decode_rt(rt: str) -> Dict[str, Any]:
     n1, n2, n3, n4, n5 = m.groups()
     return {
         "raw": rt,
-        "n1_land_sea": {"0": "Land", "1": "Sea", "/": "Unknown/Unset"}.get(n1, n1),
-        "n2_alert_level": {"0": "Forecast", "1": "Warning", "/": "Unknown/Unset"}.get(n2, n2),
-        "n3_method": {"9": "PLUM-only valid (no source estimate in source+M method)", "/":"Unknown/Unset"}.get(n3, n3),
+        "n1_land_sea": RT_LAND_SEA.get(n1, n1),
+        "n2_alert_level": RT_ALERT_LEVEL.get(n2, n2),
+        "n3_method": RT_METHOD.get(n3, n3),
         "n4_reserved": n4,
         "n5_reserved": n5,
     }
@@ -185,25 +186,10 @@ def decode_rc(rc: str) -> Dict[str, Any]:
     if not m:
         return {"raw": rc}
     n1, n2, n3, n4, n5 = m.groups()
-    chg = {
-        "0": "No/little change",
-        "1": "Max predicted intensity increased by ≥1.0",
-        "2": "Max predicted intensity decreased by ≥1.0",
-        "/": "Unknown/Unset/Cancel",
-    }
-    reason = {
-        "0": "No change",
-        "1": "Mainly M changed (≥1.0)",
-        "2": "Mainly source position changed (≥10.0 km)",
-        "3": "Both M and source pos changed",
-        "4": "Depth changed (≥30 km; otherwise none of above)",
-        "9": "Changed due to PLUM prediction",
-        "/": "Unknown/Unset/Cancel",
-    }
     return {
         "raw": rc,
-        "n1_change": chg.get(n1, n1),
-        "n2_reason": reason.get(n2, n2),
+        "n1_change": RC_CHANGE.get(n1, n1),
+        "n2_reason": RC_REASON.get(n2, n2),
         "n3_reserved": n3,
         "n4_reserved": n4,
         "n5_reserved": n5,
@@ -255,19 +241,10 @@ def decode_ebi_block(tokens: List[str], kind: str) -> Tuple[Dict[str, Any], int]
     y1y2 = {"y1_alert": None, "y2_phase": None}
     if re.match(r"^[0-9/]{2}$", y):
         y1, y2 = y[0], y[1]
-        y1y2["y1_alert"] = {"0":"Forecast","1":"Warning","/":"Unknown"}.get(y1, y1)
-        y1y2["y2_phase"] = {
-            "0":"Not yet arrived",
-            "1":"Already arrived (predicted)",
-            "9":"No arrival-time prediction (PLUM)",
-            "/":"Unknown"
-        }.get(y2, y2)
+        y1y2["y1_alert"] = EBI_ALERT.get(y1, y1)
+        y1y2["y2_phase"] = EBI_PHASE.get(y2, y2)
 
-    label = {
-        "EBI": "Region (地域)",
-        "ECI": "Municipality (市町村)",
-        "EII": "Station (観測点)",
-    }.get(kind, "Unknown")
+    label = EBI_LABELS.get(kind, UNKNOWN_DESC)
 
     return ({
         "scope_kind": label,
@@ -370,9 +347,9 @@ class EEWDecoder:
         idx = 5
 
         msg = EEWMessage(raw=raw)
-        msg.aa = aa; msg.aa_desc = AA_TYPES.get(aa, "Unknown")
-        msg.bb = bb; msg.bb_office = OFFICES.get(bb, "Unknown")
-        msg.nn = nn; msg.nn_desc = NN_TYPES.get(nn, "Unknown")
+        msg.aa = aa; msg.aa_desc = AA_TYPES.get(aa, UNKNOWN_DESC)
+        msg.bb = bb; msg.bb_office = OFFICES.get(bb, UNKNOWN_DESC)
+        msg.nn = nn; msg.nn_desc = NN_TYPES.get(nn, UNKNOWN_DESC)
         msg.transmit_time = self._fmt_time_yy(ts)
         msg.cnf = cnf_info
 

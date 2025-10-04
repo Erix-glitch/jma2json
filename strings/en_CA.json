@@ -1,0 +1,120 @@
+{
+  "common": {
+    "unknown": "Unknown",
+    "unknown_unset": "Unknown/Unset",
+    "unknown_unset_cancel": "Unknown/Unset/Cancel"
+  },
+  "rk": {
+    "epicenter_reliability": {
+      "1": "P/S level-cross, IPF 1pt, or assumed source (PLUM)",
+      "2": "IPF 2pt",
+      "3": "IPF 3-4pt",
+      "4": "IPF 5+ pt",
+      "5": "NIED system ≤4 pt or no precision info (Hi-net)",
+      "6": "NIED system 5+ pt (Hi-net)",
+      "7": "EPOS (offshore/outside network)",
+      "8": "EPOS (inland/inside network)",
+      "9": "Reserved",
+      "/": "Unknown/Unset/Cancel"
+    },
+    "depth_reliability": {
+      "1": "P/S level-cross, IPF 1pt, or assumed source (PLUM)",
+      "2": "IPF 2pt",
+      "3": "IPF 3-4pt",
+      "4": "IPF 5+ pt",
+      "5": "NIED system ≤4 pt or no precision info (Hi-net)",
+      "6": "NIED system 5+ pt (Hi-net)",
+      "7": "EPOS (offshore/outside network)",
+      "8": "EPOS (inland/inside network)",
+      "9": "Reserved",
+      "/": "Unknown/Unset/Cancel"
+    },
+    "magnitude_reliability": {
+      "1": "Undefined",
+      "2": "NIED system (Hi-net)",
+      "3": "All P-phase",
+      "4": "Mixed P/all-phase",
+      "5": "All stations, all phases",
+      "6": "EPOS",
+      "7": "Undefined",
+      "8": "P/S level-cross, or assumed source (PLUM)",
+      "9": "Reserved",
+      "/": "Unknown/Unset/Cancel"
+    },
+    "magnitude_used_points": {
+      "1": "1 point / level-cross / assumed (PLUM)",
+      "2": "2 points",
+      "3": "3 points",
+      "4": "4 points",
+      "5": "5+ points",
+      "6": "Unused",
+      "7": "Unused",
+      "8": "Unused",
+      "9": "Unused",
+      "/": "Unknown/Unset/Cancel"
+    },
+    "source_reliability": {
+      "1": "IPF 1pt or assumed source (PLUM)",
+      "2": "IPF 2pt",
+      "3": "IPF 3-4pt",
+      "4": "IPF 5+ pt",
+      "5": "Unused",
+      "6": "Unused",
+      "7": "Unused",
+      "8": "Unused",
+      "9": "Final-quality source; M/hypocenter no longer change (PLUM intensity may still change)",
+      "/": "Unknown/Unset/Cancel"
+    }
+  },
+  "rt": {
+    "land_sea": {
+      "0": "Land",
+      "1": "Sea",
+      "/": "Unknown/Unset"
+    },
+    "alert_level": {
+      "0": "Forecast",
+      "1": "Warning",
+      "/": "Unknown/Unset"
+    },
+    "method": {
+      "9": "PLUM-only valid (no source estimate in source+M method)",
+      "/": "Unknown/Unset"
+    }
+  },
+  "rc": {
+    "change": {
+      "0": "No/little change",
+      "1": "Max predicted intensity increased by ≥1.0",
+      "2": "Max predicted intensity decreased by ≥1.0",
+      "/": "Unknown/Unset/Cancel"
+    },
+    "reason": {
+      "0": "No change",
+      "1": "Mainly M changed (≥1.0)",
+      "2": "Mainly source position changed (≥10.0 km)",
+      "3": "Both M and source pos changed",
+      "4": "Depth changed (≥30 km; otherwise none of above)",
+      "9": "Changed due to PLUM prediction",
+      "/": "Unknown/Unset/Cancel"
+    }
+  },
+  "ebi": {
+    "labels": {
+      "EBI": "Region",
+      "ECI": "Municipality",
+      "EII": "Station"
+    },
+    "alert": {
+      "0": "Forecast",
+      "1": "Warning",
+      "/": "Unknown"
+    },
+    "phase": {
+      "0": "Not yet arrived",
+      "1": "Already arrived (predicted)",
+      "9": "No arrival-time prediction (PLUM)",
+      "/": "Unknown"
+    }
+  }
+}

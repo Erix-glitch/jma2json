@@ -1,6 +1,8 @@
+import httpx
 from jma2json import decode_to_json
 
-raw = """37 03 00 251002090935 C11 251002090859 ND20251002090902 NCN906 JD////////////// JN/// 212 N399 E1409 010 36 03 RK44519 RT00/// RC0//// 9999="""
+# fetches the latest EEW report from JMA
+r = httpx.get("https://api.wolfx.jp/jma_eew.json").json()
 
-json_payload = decode_to_json(raw, ensure_ascii=False, indent=2)
+json_payload = decode_to_json(r['OriginalText'], ensure_ascii=False, indent=2)
 print(json_payload)
