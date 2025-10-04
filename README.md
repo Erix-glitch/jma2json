@@ -71,7 +71,7 @@ The JSON files should contain simple `code -> label` mappings. If you omit a map
 - The library focuses on telegram type VXSE (EEW). Other telegram types may decode partially.
 - Fields with `//` or `///` placeholders from the source message are surfaced as `None`.
 - Network access is not required for decoding; the bundled example fetches data from a community api [Wolfx API](https://api.wolfx.jp) for convenience only.
-- The included tables (`tables.json`) may be missing codes, as I tried to scrape them from the JMA telegram explanation PDF.
+- The included tables (`tables.json`) **are** missing codes, as I tried to extract them from the JMA telegram explanation PDF. (failed)
 
 ## Resources
 
