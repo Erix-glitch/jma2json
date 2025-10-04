@@ -66,9 +66,9 @@ AA_TYPES = dict(_TABLES.get("AA_TYPES", {}))
 OFFICES = dict(_TABLES.get("OFFICES", {}))
 NN_TYPES = dict(_TABLES.get("NN_TYPES", {}))
 
+# Keys as strings to preserve leading zeros if any.
 EPICENTER_CODES = dict(_TABLES.get("EPICENTER_CODES", {}))
 REGION_CODES = dict(_TABLES.get("REGION_CODES", {}))
-
 SHINDO_MAP = dict(_TABLES.get("SHINDO_MAP", {}))
 
 UNKNOWN_DESC = _string_value("common", "unknown", default="Unknown")
