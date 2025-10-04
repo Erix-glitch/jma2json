@@ -30,13 +30,9 @@ AA_TYPES = dict(_TABLES.get("AA_TYPES", {}))
 OFFICES = dict(_TABLES.get("OFFICES", {}))
 NN_TYPES = dict(_TABLES.get("NN_TYPES", {}))
 
-# Minimal embedded epicenter codes (users can load full table).
 # Keys as strings to preserve leading zeros if any.
 EPICENTER_CODES = dict(_TABLES.get("EPICENTER_CODES", {}))
-
-# Minimal region code examples for EBI (地域コード). Users can load full table at runtime.
 REGION_CODES = dict(_TABLES.get("REGION_CODES", {}))
-
 SHINDO_MAP = dict(_TABLES.get("SHINDO_MAP", {}))
 
 def parse_int_or_none(s: str) -> Optional[int]:
