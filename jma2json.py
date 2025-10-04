@@ -13,7 +13,7 @@ from pathlib import Path
 # tables
 
 TABLES_PATH = Path(__file__).with_name("tables.json")
-STRINGS_PATH = Path(__file__).resolve().parent / "strings" / "en_CA.json" # change this if you want to use another language
+STRINGS_PATH = Path(__file__).resolve().parent / "strings" / "ja_JP.json" # change this if you want to use another language
 
 
 def _load_builtin_tables(source: Optional[Union[str, Path]] = None) -> Dict[str, Dict[str, Any]]:
