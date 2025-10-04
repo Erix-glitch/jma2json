@@ -72,3 +72,8 @@ The JSON files should contain simple `code -> label` mappings. If you omit a map
 - Fields with `//` or `///` placeholders from the source message are surfaced as `None`.
 - Network access is not required for decoding; the bundled example fetches data from a community api [Wolfx API](https://api.wolfx.jp) for convenience only.
 - The included tables (`tables.json`) may be missing codes, as I tried to scrape them from the JMA telegram explanation PDF.
+
+## Resources
+
+* https://www.data.jma.go.jp/suishin/shiyou/pdf/no40202
+* https://github.com/skubota/eew
