@@ -13,7 +13,7 @@ from pathlib import Path
 # tables
 
 TABLES_PATH = Path(__file__).with_name("tables.json")
-STRINGS_PATH = Path(__file__).resolve().parent / "strings" / "ja_JP.json" # change this if you want to use another language
+STRINGS_PATH = Path(__file__).resolve().parent / "strings" / "en_CA.json" # change this if you want to use another language
 
 
 def _load_builtin_tables(source: Optional[Union[str, Path]] = None) -> Dict[str, Dict[str, Any]]:
@@ -61,10 +61,9 @@ def _string_value(*keys: str, default: str) -> str:
             return default
     return data if isinstance(data, str) else default
 
-
-AA_TYPES = dict(_TABLES.get("AA_TYPES", {}))
-OFFICES = dict(_TABLES.get("OFFICES", {}))
-NN_TYPES = dict(_TABLES.get("NN_TYPES", {}))
+AA_TYPES = _strings_dict("header", "aa_types")
+OFFICES = _strings_dict("header", "offices")
+NN_TYPES = _strings_dict("header", "nn_types")
 
 # Keys as strings to preserve leading zeros if any.
 EPICENTER_CODES = dict(_TABLES.get("EPICENTER_CODES", {}))

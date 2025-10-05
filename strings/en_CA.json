@@ -116,5 +116,32 @@
       "9": "No arrival-time prediction (PLUM)",
       "/": "Unknown"
     }
+  },
+  "header": {
+    "aa_types": {
+      "35": "EEW Forecast: max intensity only (pattern 1)",
+      "36": "EEW Forecast: M + intensity + arrival (pattern 2, incl. PLUM-only)",
+      "37": "EEW Forecast/Warning: M + intensity + arrival (pattern 3, higher certainty)",
+      "38": "EEW Test",
+      "39": "EEW Cancellation",
+      "47": "Public EEW (General)",
+      "48": "Public EEW Cancellation",
+      "61": "Realtime Shindo / Cancel"
+    },
+    "offices": {
+      "01": "Sapporo",
+      "02": "Sendai",
+      "03": "Tokyo (HQ)",
+      "04": "Osaka",
+      "05": "Fukuoka"
+    },
+    "nn_types": {
+      "00": "Normal",
+      "01": "Training",
+      "10": "Cancellation of normal",
+      "11": "Cancellation of training",
+      "20": "Reference/Test",
+      "30": "Code distribution test"
+    }
   }
 }
